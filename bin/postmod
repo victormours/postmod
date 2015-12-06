@@ -1,10 +1,20 @@
 #!/usr/bin/env ruby
 require_relative '../lib/postmod'
+require 'active_support/inflector/inflections'
 
-if ARGV[0] == 'create'
-  project_name = ARGV[1]
-  Postmod::Create.(project_name)
+subcommand = ARGV[0]
 
-  exec "cd #{project_name} && bundle install"
+subcommand = 'create' if subcommand == 'c'
+subcommand = 'generate' if subcommand == 'g'
+subcommand = 'generate/module' if subcommand == 'gm'
+subcommand = 'generate/action' if subcommand == 'ga'
+
+action_name = subcommand.camelize
+
+action = "Postmod::#{action_name}".constantize
+
+if ARGV[1]
+  action.(ARGV[1])
+else
+  action.()
 end
-

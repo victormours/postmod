@@ -9,10 +9,10 @@ RSpec.describe Postmod::Generate::Module do
 
   it "creates a ruby file with the proper module name" do
     described_class.(module_path)
-    file_content = File.readlines(module_path + ".rb").reduce(&:+)
-
     expect(file_content).to eq expected_file_content
   end
+
+  let(:file_content) { File.readlines(module_path + ".rb").reduce(&:+) }
 
   let(:expected_file_content) do
     <<MODULE_FILE
