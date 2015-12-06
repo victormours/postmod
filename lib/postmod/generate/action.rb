@@ -13,11 +13,9 @@ module Postmod::Generate
 
     def action_content
       <<ACTION_FILE
-require 'postmod'
+class #{action_name}
 
-#{action_name} = Postmod::Action.new() do
-
-  def call
+  def self.call
   end
 
 end

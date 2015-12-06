@@ -13,18 +13,16 @@ RSpec.describe Postmod::Generate::Action do
 
     it "creates a file with the right class name" do
       described_class.("#{project_path}/core/lib/some_module/some_action")
-      class_line = File.readlines("#{project_path}/core/lib/some_module/some_action.rb")[2]
-      expect(class_line).to start_with "SomeModule::SomeAction"
+      class_line = File.readlines("#{project_path}/core/lib/some_module/some_action.rb").first
+      expect(class_line).to start_with "class SomeModule::SomeAction"
     end
   end
 
   let(:expected_file_content) do
     <<ACTION_FILE
-require 'postmod'
+class SomeAction
 
-SomeAction = Postmod::Action.new() do
-
-  def call
+  def self.call
   end
 
 end
