@@ -1,3 +1,5 @@
+require 'active_support/inflector/inflections'
+
 module Postmod::Generate
   Action = Postmod::Action.new(:action_path) do
 
