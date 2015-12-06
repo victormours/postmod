@@ -17,7 +17,7 @@ RSpec.describe Postmod::Generate::Module do
   let(:expected_file_content) do
     <<MODULE_FILE
 module SomeModule
-  Dir["\#{__FILE__.gsub(".rb", '')}/*.rb"].each { |file| require file }
+  Dir["\#{__FILE__.gsub(/\.rb$/, '')}/*.rb"].each {|file| require file }
 end
 MODULE_FILE
   end
