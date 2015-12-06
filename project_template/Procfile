@@ -1,1 +1,1 @@
-web: bundle exec chaplin web -p $PORT
+web: bundle exec rackup --port $PORT
