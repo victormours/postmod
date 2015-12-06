@@ -1,11 +1,7 @@
 require 'active_support/inflector/inflections'
 
 module Postmod::Generate
-  Module = Struct.new(:module_path) do
-
-    def self.call(module_path)
-      new(module_path).call
-    end
+  Module = Postmod::Action.new(:module_path) do
 
     def call
       Dir.mkdir(module_path)
