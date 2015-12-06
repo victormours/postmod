@@ -32,7 +32,14 @@ module Postmod
     end
 
     def create_api
-      FileUtils.mkdir("#{project_path}/api")
+      FileUtils.cp_r("#{project_template_path}/api", project_path)
+
+      api_file_content = File.readlines("#{project_template_path}/api/api.rb")
+
+      File.open("#{project_path}/api/api.rb", 'w') do |api_file|
+        api_file.puts "require_relative '../core/lib/#{project_name}'"
+        api_file_content.each { |line| api_file.puts line }
+      end
     end
 
     def create_web

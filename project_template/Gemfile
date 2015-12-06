@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'postmod', git: 'git://github.com/victormours/postmod.git'
+
 group :web do
   gem 'chaplin'
 end

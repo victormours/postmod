@@ -11,6 +11,8 @@ module Postmod::Generate
 
     def action_content
       <<ACTION_FILE
+require 'postmod'
+
 #{action_name} = Postmod::Action.new() do
 
   def call
