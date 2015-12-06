@@ -1,4 +1,4 @@
-require 'active_support/inflector/inflections'
+require 'active_support/core_ext/string/inflections'
 
 module Postmod::Generate
   Module = Postmod::Action.new(:module_path) do
