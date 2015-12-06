@@ -1,10 +1,13 @@
 require 'fileutils'
 require 'chaplin'
 
-module Postmod::Create
+Postmod::Create = Struct.new(:project_path) do
 
   def self.call(project_path)
-    project_template_path = "#{__dir__}/../../project_template"
+    new(project_path).call
+  end
+
+  def call
     FileUtils.mkdir(project_path)
 
     FileUtils.mkdir("#{project_path}/data_store")
@@ -22,6 +25,19 @@ module Postmod::Create
     Chaplin::New.("#{project_path}/web")
     FileUtils.cp("#{project_template_path}/web/config.ru", "#{project_path}/web/config.ru")
     FileUtils.cp("#{project_template_path}/web/web.rb", "#{project_path}/web/web.rb")
+
+    Postmod::Generate::Module.("#{project_path}/core/lib/#{project_name}")
   end
+
+  private
+
+  def project_template_path
+    "#{__dir__}/../../project_template"
+  end
+
+  def project_name
+    project_path.split("/").last
+  end
+
 
 end
