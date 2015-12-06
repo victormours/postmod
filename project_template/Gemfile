@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+group :web do
+  gem 'chaplin'
+end
+
+group :data_store do
+  gem 'activerecord'
+  gem 'standalone_migrations'
+end

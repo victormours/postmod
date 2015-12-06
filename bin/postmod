@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+require 'chaplin'
+
+if ARGV[0] == 'new'
+  project_name = ARGV[1]
+
+  FileUtils.mkdir(project_name)
+  FileUtils.mkdir("#{project_name}/data_store")
+  FileUtils.cp_r("#{__dir__}/../project_template/data_store", project_name)
+  FileUtils.cp_r("#{__dir__}/../project_template/core", project_name)
+  FileUtils.cp("#{__dir__}/../project_template/Gemfile", "#{project_name}/Gemfile")
+  FileUtils.cp("#{__dir__}/../project_template/config.ru", "#{project_name}/config.ru")
+
+  File.write("#{project_name}/.ruby-version", '2.2.2')
+
+  FileUtils.mkdir("#{project_name}/api")
+  Chaplin::New.("#{project_name}/web")
+  FileUtils.cp("#{__dir__}/../project_template/web/config.ru", "#{project_name}/web/config.ru")
+  FileUtils.cp("#{__dir__}/../project_template/web/web.rb", "#{project_name}/web/web.rb")
+
+  exec "cd #{project_name} && bundle install"
+end
+
