@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/victormours/chaplin.git
+  revision: 4e35b721f0df6ff0d892283994889039357927c1
+  specs:
+    chaplin (0.0.6)
+      faraday
+      mustache
+      rack
+      sinatra
+      sinatra-contrib
+
 PATH
   remote: .
   specs:
@@ -15,12 +26,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     backports (3.6.7)
-    chaplin (0.0.6)
-      faraday
-      mustache
-      rack
-      sinatra
-      sinatra-contrib
     coderay (1.1.0)
     diff-lcs (1.2.5)
     faraday (0.9.2)
@@ -107,6 +112,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  chaplin!
   guard
   guard-bundler
   guard-shell
