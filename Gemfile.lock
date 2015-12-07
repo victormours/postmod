@@ -15,7 +15,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     backports (3.6.7)
-    chaplin (0.0.5)
+    chaplin (0.0.6)
       faraday
       mustache
       rack
