@@ -1,7 +1,7 @@
 Gem::Specification.new do |gem|
   gem.name = 'postmod'
   gem.summary = "A facilitator for post-modern application architecture or something."
-  gem.version = '0.0.2'
+  gem.version = '0.0.3'
   gem.licenses = ['MIT']
 
   gem.authors = ['Victor Mours']
