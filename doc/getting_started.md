@@ -39,7 +39,11 @@ this creates a new directory called `greetings` with a couple of configuration f
 Install the app
 ===
 
-Like most ruby projects, our new app has a few dependencies. Let's install them by running `bundle install`.
+Like most ruby projects, our new app has a few dependencies. Let's install them:
+```
+$ cd greetings
+$ bundle install
+```
 
 Run and deploy!
 ===
@@ -49,6 +53,148 @@ Chaplin is the micro-framework Postmod uses to port an api into a web app, but m
 
 Now that we're made sure our app can run, let's deploy it to heroku.
 ```
-git init
-git commit -am "Initial commit"
+$ git init
+$ git add .
+$ git commit -m "Setup project"
+$ heroku apps:create postmod-greetings # This app name is probably already taken, feel free to chose another one
+$ git push --set-upstream heroku master
 ```
+The deploy will take a few moments, and then you'll be able to see your app online with `heroku open`
+
+And now the real stuff
+===
+
+Alright! Time to get some work done. As you may have noticed, your app has three layers: a plain Ruby module defined in `core/lib/greetings.rb`, an api defined in `api/api.rb`, and web app in `web/app.yml`.
+For each feature, we're going to start by defining it in the ruby module, and then work our way up as needed.
+
+For now, let's create a new ruby class
+```
+$ postmod generate/action core/lib/greetings/hello
+```
+This creates a new action: a ruby class with just a `.call` method. Let's open `core/lib/greetings/hello.rb` in your editor of choice. This is what is looks like:
+```
+class Greetings::Hello
+
+  def self.call
+  end
+
+end
+```
+
+Using the call method is a Postmod convention: actions that make sense for the user should be classes that can be called as is.
+Let's fill in that method like this:
+```
+class Greetings::Hello
+
+  def self.call
+    { hello: "Hello world!" }
+  end
+
+end
+```
+
+So now we could use greetings as a ruby library and greet people. Nothing remarkable. Let's port that feature to the api.
+
+The api is defined in `api/api.rb` like this:
+```
+require_relative '../core/lib/greetings'
+require 'sinatra/base'
+require 'json'
+
+class Api < Sinatra::Application
+end
+```
+
+Let's edit it like this:
+
+```
+require_relative '../core/lib/greetings'
+require 'sinatra/base'
+require 'json'
+
+class Api < Sinatra::Application
+
+  get '/hello.json' do
+    Greetings::Hello.().to_json
+  end
+
+end
+```
+
+And now let's start the api like this
+```
+$ cd api
+$ bundle exec rackup
+```
+And you can see the result at `localhost:9292/hello.json`.
+
+Alright, now time to make this available through the web app. Let's take a look at the Chaplin declaration file, in `web/app.yml`
+
+```
+api_url: "http://localhost:{{env.PORT}}/api"
+
+layout: layout.html
+
+404: 404.html
+
+routes:
+  GET /: index.html
+  GET /about: about.html
+  GET /redirect_to_about: redirect go_to_about_page
+
+
+pages:
+
+  about.html:
+    repo: GET repos/victormours/chaplin
+
+
+redirects:
+
+  go_to_about_page:
+    path: /about
+    requests: {}
+
+```
+
+The interesting thing here is that the web app calls the api server-side to get the json data it will use to render the templates. This allows to completely decouple application logic from HTML presentation.
+Let's remove some of the default Chaplin stuff and make the file look like this:
+```
+api_url: "http://localhost:{{env.PORT}}/api"
+
+layout: layout.html
+
+404: 404.html
+
+routes:
+  GET /: index.html
+  GET /hello: hello.html
+
+pages:
+
+  hello.html:
+    greeting: GET hello.json
+
+```
+
+Now we need to create the template file. This will do it:
+```
+$ echo "{{greeting.hello}}" > web/templates/hello.html
+```
+
+And start the application again with `heroku local`
+Now navigate to `localhost:5000/hello` and voilà!
+
+Time to deploy to heroku:
+```
+$ git add .
+$ git commit -m "Say hello"
+$ git push heroku
+$ heroku open
+```
+
+
+That's it!
+===
+
+Lots of things such as testing, connecting to a local database, background jobs, a simpler way to define the api, etc... are missing, but things are on their way.
