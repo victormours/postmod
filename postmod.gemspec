@@ -1,14 +1,14 @@
 Gem::Specification.new do |gem|
   gem.name = 'postmod'
   gem.summary = "A facilitator for post-modern application architecture or something."
-  gem.version = '0.0.0'
+  gem.version = '0.0.1'
   gem.licenses = ['MIT']
 
   gem.authors = ['Victor Mours']
   gem.email = 'victor.mours@gmail.com'
 
   gem.executables = ['postmod']
-  gem.files = Dir["lib/**/*.rb"] + Dir["default_project/**/*"]
+  gem.files = Dir["lib/**/*.rb"] + Dir["project_template/**/*"]
 
   gem.add_runtime_dependency 'chaplin'
   gem.add_runtime_dependency 'activesupport'
