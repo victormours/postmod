@@ -1,4 +1,4 @@
-api_url: http://localhost:5000
+api_url: "http://localhost:{{env.PORT}}"
 
 layout: layout.html
 
