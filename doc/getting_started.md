@@ -19,9 +19,9 @@ To follow along, you're gonna need to have a recent version of ruby and the hero
 Installing
 ===
 
-Postmod is still pre-release, so you need to install it with:
+Let's get started! Install Postmod with this command
 ```
-$ gem install postmod --pre
+$ gem install postmod
 ```
 
 
