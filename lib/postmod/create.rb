@@ -46,6 +46,7 @@ module Postmod
       Chaplin::New.("#{project_path}/web")
       FileUtils.cp("#{project_template_path}/web/config.ru", "#{project_path}/web/config.ru")
       FileUtils.cp("#{project_template_path}/web/web.rb", "#{project_path}/web/web.rb")
+      FileUtils.cp("#{project_template_path}/web/app.yml", "#{project_path}/web/app.yml")
     end
 
     def project_template_path
