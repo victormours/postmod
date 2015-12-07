@@ -28,6 +28,8 @@ module Postmod
 
     def create_core
       FileUtils.cp_r("#{project_template_path}/core", project_path)
+      FileUtils.mkdir("#{project_path}/core/bin")
+      FileUtils.mkdir("#{project_path}/core/lib")
       Postmod::Generate::Module.("#{project_path}/core/lib/#{project_name}")
     end
 
