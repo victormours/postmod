@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.email = 'victor.mours@gmail.com'
 
   gem.executables = ['postmod']
-  gem.files = Dir["lib/**/*.rb"] + Dir["bin/*"] + Dir["default_project/**/*"]
+  gem.files = Dir["lib/**/*.rb"] + Dir["default_project/**/*"]
 
   gem.add_runtime_dependency 'chaplin'
   gem.add_runtime_dependency 'activesupport'
