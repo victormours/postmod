@@ -1,0 +1,4 @@
+# Used for tests
+db:
+  migrate: spec/tmp/toto/db/migrate
+

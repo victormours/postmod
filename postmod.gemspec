@@ -12,8 +12,10 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'chaplin'
   gem.add_runtime_dependency 'activesupport'
+  gem.add_runtime_dependency 'standalone_migrations'
 
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rspec-preloader'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'guard'
   gem.add_development_dependency 'guard-shell'
