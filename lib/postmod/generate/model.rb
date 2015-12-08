@@ -2,16 +2,32 @@ require 'active_support/core_ext/string/inflections'
 require "rails/generators"
 
 module Postmod::Generate
-  Model = Postmod::Action.new(:model_path) do
+  Model = Postmod::Action.new(:model_path, :options) do
 
     def call
-      File.open(model_filename, 'w') do |file|
-        file.puts model_content
-      end
-      Rails::Generators.invoke "active_record:migration", [model_name], :destination_root => Pathname.new(".")
+      create_ruby_file
+      create_migration
     end
 
     private
+
+    def create_ruby_file
+      File.open(model_filename, 'w') do |file|
+        file.puts model_content
+      end
+    end
+
+    def create_migration
+      Rails::Generators.invoke(
+        "active_record:migration",
+        ["create_#{model_name}"] + migration_options,
+        destination_root: Pathname.new(".")
+      )
+    end
+
+    def migration_options
+      [options, "created_at:timestamps", "updated_at:timestamps"].flatten
+    end
 
     def model_content
       <<ACTION_FILE
