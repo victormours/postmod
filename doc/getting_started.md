@@ -64,14 +64,14 @@ The deploy will take a few moments, and then you'll be able to see your app onli
 And now the real stuff
 ===
 
-Alright! Time to get some work done. As you may have noticed, your app has three layers: a plain Ruby module defined in `core/lib/greetings.rb`, an api defined in `api/api.rb`, and web app in `web/app.yml`.
+Alright! Time to get some work done. As you may have noticed, your app has three layers: a plain Ruby module defined in `lib/greetings.rb`, an api defined in `api/api.rb`, and web app in `web/app.yml`.
 For each feature, we're going to start by defining it in the ruby module, and then work our way up as needed.
 
 For now, let's create a new ruby class
 ```
-$ postmod generate/action core/lib/greetings/hello
+$ postmod generate/action lib/greetings/hello
 ```
-This creates a new action: a ruby class with just a `.call` method. Let's open `core/lib/greetings/hello.rb` in your editor of choice. This is what is looks like:
+This creates a new action: a ruby class with just a `.call` method. Let's open `lib/greetings/hello.rb` in your editor of choice. This is what is looks like:
 ```
 class Greetings::Hello
 
@@ -97,7 +97,7 @@ So now we could use greetings as a ruby library and greet people. Nothing remark
 
 The api is defined in `api/api.rb` like this:
 ```
-require_relative '../core/lib/greetings'
+require_relative '../lib/greetings'
 require 'sinatra/base'
 require 'json'
 
@@ -108,7 +108,7 @@ end
 Let's edit it like this:
 
 ```
-require_relative '../core/lib/greetings'
+require_relative '../lib/greetings'
 require 'sinatra/base'
 require 'json'
 

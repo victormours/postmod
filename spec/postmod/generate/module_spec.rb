@@ -22,7 +22,7 @@ end
 MODULE_FILE
   end
 
-  let(:module_path) { "#{project_path}/core/lib/some_module" }
+  let(:module_path) { "#{project_path}/lib/some_module" }
 
   before { Postmod::Create.(project_path) }
   after { `rm -rf #{project_path}` }

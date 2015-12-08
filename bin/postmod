@@ -3,19 +3,16 @@ require_relative '../lib/postmod'
 require 'active_support/core_ext/string/inflections'
 
 
-subcommand = ARGV[0]
+subcommand_map = {
+ 'c' => 'create',
+ 'gm' => 'generate/module',
+ 'ga' => 'generate/action',
+}
 
-subcommand = 'create' if subcommand == 'c'
-subcommand = 'generate' if subcommand == 'g'
-subcommand = 'generate/module' if subcommand == 'gm'
-subcommand = 'generate/action' if subcommand == 'ga'
+subcommand = subcommand_map.fetch(ARGV[0], ARGV[0])
 
 action_name = subcommand.camelize
 
 action = "Postmod::#{action_name}".constantize
 
-if ARGV[1]
-  action.(ARGV[1])
-else
-  action.()
-end
+action.(ARGV[1])

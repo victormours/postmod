@@ -23,7 +23,7 @@ ACTION_FILE
     end
 
     def action_name
-      action_path.gsub(/^.*core\/lib\//, '').camelize
+      action_path.gsub(/^.*lib\//, '').camelize
     end
 
     def action_filename

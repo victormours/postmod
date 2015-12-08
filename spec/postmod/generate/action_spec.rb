@@ -9,11 +9,11 @@ RSpec.describe Postmod::Generate::Action do
   end
 
   describe "for an action in a module" do
-    before { Postmod::Generate::Module.("#{project_path}/core/lib/some_module") }
+    before { Postmod::Generate::Module.("#{project_path}/lib/some_module") }
 
     it "creates a file with the right class name" do
-      described_class.("#{project_path}/core/lib/some_module/some_action")
-      class_line = File.readlines("#{project_path}/core/lib/some_module/some_action.rb").first
+      described_class.("#{project_path}/lib/some_module/some_action")
+      class_line = File.readlines("#{project_path}/lib/some_module/some_action.rb").first
       expect(class_line).to start_with "class SomeModule::SomeAction"
     end
   end
@@ -29,7 +29,7 @@ end
 ACTION_FILE
   end
 
-  let(:action_path) { "#{project_path}/core/lib/some_action" }
+  let(:action_path) { "#{project_path}/lib/some_action" }
   let(:file_content) { File.readlines(action_path + ".rb").reduce(&:+) }
 
   before { Postmod::Create.(project_path) }
