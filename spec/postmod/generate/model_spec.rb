@@ -30,31 +30,22 @@ RSpec.describe Postmod::Generate::Model do
     expect(file_content).to eq expected_file_content
   end
 
-  describe "for a model in a module" do
-    before { Postmod::Generate::Module.("lib/some_module") }
-
-    it "creates a file with the right class name" do
-      described_class.("lib/some_module/article")
-      class_line = File.readlines("lib/some_module/article.rb").first
-      expect(class_line).to start_with "class SomeModule::Article"
-    end
-  end
-
   let(:expected_file_content) do
     <<ACTION_FILE
-class Article < ActiveRecord::Base
+class SomeModule::Article < ActiveRecord::Base
 
 end
 ACTION_FILE
   end
 
-  let(:model_path) { "lib/article" }
+  let(:model_path) { "lib/some_module/article" }
   let(:file_content) { File.readlines(model_path + ".rb").reduce(&:+) }
 
   before do
     initial_path
     Postmod::Create.(project_path)
     FileUtils.cd(project_path)
+    Postmod::Generate::Module.('lib/some_module')
   end
   let(:initial_path) { FileUtils.pwd }
 

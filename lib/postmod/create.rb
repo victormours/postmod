@@ -33,6 +33,7 @@ module Postmod
       db_config_file_content = db_config_file.render(app_name: project_name)
 
       File.write("#{project_path}/db/config.yml", db_config_file_content)
+      `psql -d postgres --command="create role #{project_name} login createdb;"`
     end
 
     def create_api

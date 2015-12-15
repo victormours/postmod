@@ -20,7 +20,7 @@ module Postmod::Generate
     def create_migration
       Rails::Generators.invoke(
         "active_record:migration",
-        ["create_#{model_name}"] + migration_options,
+        [migration_name] + migration_options,
         destination_root: Pathname.new(".")
       )
     end
@@ -35,6 +35,10 @@ class #{model_name} < ActiveRecord::Base
 
 end
 ACTION_FILE
+    end
+
+    def migration_name
+      "create_#{model_path.split('/').last}"
     end
 
     def model_name
