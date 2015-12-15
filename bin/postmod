@@ -15,4 +15,5 @@ action_name = subcommand.camelize
 
 action = "Postmod::#{action_name}".constantize
 
-action.(ARGV[1])
+
+action.(*ARGV[1..-1])
