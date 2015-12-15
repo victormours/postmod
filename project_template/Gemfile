@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'postmod', git: 'git://github.com/victormours/postmod.git'
-
 group :web do
   gem 'chaplin', git: 'git://github.com/victormours/chaplin.git'
 end
@@ -10,12 +8,16 @@ group :lib do
   gem 'pg'
 end
 
-group :data_store do
+groupd :bin do
+  gem 'pry'
+end
+
+group :db do
   gem 'activerecord'
   gem 'standalone_migrations'
 end
 
 group :development do
+  gem 'postmod', git: 'git://github.com/victormours/postmod.git'
   gem 'dotenv'
-  gem 'pry'
 end

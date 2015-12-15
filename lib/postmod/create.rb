@@ -40,6 +40,8 @@ module Postmod
 
       File.open("#{project_path}/bin/console", 'w') do |console_file|
         console_file.puts '#!/usr/bin/env ruby'
+        console_file.puts "require 'pry'"
+        console_file.puts "require_relative '../lib/#{project_name}'"
         console_file.puts "#{project_name.capitalize}.pry"
       end
       `chmod u+x #{project_path}/bin/console`

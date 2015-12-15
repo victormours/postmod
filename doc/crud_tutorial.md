@@ -13,6 +13,11 @@ $ postmod generate/model lib/todolist/todo content:string status:string
 $ bundle exec rake db:migrate
 ```
 
+This is enough to take a look at the console:
+```
+$ bundle exec bin/console
+```
+
 
 ```
 $ heroku addons:create heroku-postgresql:hobby-dev

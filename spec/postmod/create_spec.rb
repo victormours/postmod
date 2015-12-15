@@ -15,6 +15,8 @@ RSpec.describe Postmod::Create do
   let(:expected_console_file_content) do
   <<CONSOLE_FILE
 #!/usr/bin/env ruby
+require 'pry'
+require_relative '../lib/toto'
 Toto.pry
 CONSOLE_FILE
   end
