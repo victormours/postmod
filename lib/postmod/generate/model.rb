@@ -31,6 +31,8 @@ module Postmod::Generate
 
     def model_content
       <<ACTION_FILE
+require 'active_record'
+
 class #{model_name} < ActiveRecord::Base
 
 end

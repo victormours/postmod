@@ -32,6 +32,8 @@ RSpec.describe Postmod::Generate::Model do
 
   let(:expected_file_content) do
     <<ACTION_FILE
+require 'active_record'
+
 class SomeModule::Article < ActiveRecord::Base
 
 end
