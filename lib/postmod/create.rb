@@ -7,6 +7,7 @@ module Postmod
     def call
       create_project
       create_lib
+      create_db
       create_api
       create_web
       create_spec
@@ -17,11 +18,21 @@ module Postmod
     def create_project
       FileUtils.mkdir(project_path)
       FileUtils.cp_r(Dir.glob(project_template_path + "/*"), project_path)
+      FileUtils.cp_r(Dir.glob(project_template_path + "/*"), project_path)
+      File.write("#{project_path}/.ruby-version", '2.2.2')
       File.write("#{project_path}/.ruby-version", '2.2.2')
     end
 
     def create_lib
       Postmod::Generate::Module.("#{project_path}/lib/#{project_name}")
+    end
+
+    def create_db
+      db_config_file = Mustache.new
+      db_config_file.template_file = "#{project_path}/db/config.yml"
+      db_config_file_content = db_config_file.render(app_name: project_name)
+
+      File.write("#{project_path}/db/config.yml", db_config_file_content)
     end
 
     def create_api

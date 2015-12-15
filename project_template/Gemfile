@@ -6,7 +6,15 @@ group :web do
   gem 'chaplin', git: 'git://github.com/victormours/chaplin.git'
 end
 
+group :lib do
+  gem 'pg'
+end
+
 group :data_store do
   gem 'activerecord'
   gem 'standalone_migrations'
+end
+
+group :development do
+  gem 'dotenv'
 end
