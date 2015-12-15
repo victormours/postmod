@@ -9,6 +9,7 @@ $ cd todolist
 $ bundle install
 $ bundle exec rake db:create
 $ postmod generate/model lib/todolist/todo content:string status:string
+$ bundle exec rake db:migrate
 ```
 
 

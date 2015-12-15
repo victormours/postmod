@@ -8,6 +8,7 @@ module Postmod
       create_project
       create_lib
       create_db
+      create_bin
       create_api
       create_web
       create_spec
@@ -34,6 +35,14 @@ module Postmod
 
       File.write("#{project_path}/db/config.yml", db_config_file_content)
       `psql -d postgres --command="create role #{project_name} login createdb;"`
+    end
+
+    def create_bin
+      File.open("#{project_path}/bin/console", 'w') do |console_file|
+        console_file.puts '#!/usr/bin/env ruby'
+        console_file.puts "#{project_name.capitalize}.pry"
+      end
+      `chmod u+x #{project_path}/bin/console`
     end
 
     def create_api
