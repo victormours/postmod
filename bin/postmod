@@ -15,5 +15,9 @@ action_name = subcommand.camelize
 
 action = "Postmod::#{action_name}".constantize
 
+if subcommand == 'generate/model'
+  action.(ARGV[1], ARGV[2..-1])
+lse
+  action.(*ARGV[1..-1])
+end
 
-action.(*ARGV[1..-1])
