@@ -17,6 +17,7 @@ RSpec.describe Postmod::Create do
 #!/usr/bin/env ruby
 require 'pry'
 require_relative '../lib/toto'
+ActiveRecord::Base.establish_connection
 Toto.pry
 CONSOLE_FILE
   end
