@@ -1,5 +1,8 @@
 api_url: "http://localhost:{{env.PORT}}/api"
 
+headers:
+  "Content-Type": "application/json"
+
 layout: layout.html
 
 404: 404.html
