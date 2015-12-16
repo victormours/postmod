@@ -1,4 +1,4 @@
-development:
+development: &defaults
   adapter: postgresql
   encoding: utf8
   host: localhost
@@ -7,7 +7,8 @@ development:
   pool: 5
   timeout: 5000
 
-test: &test
+test:
+  << *defaults
   database: {{app_name}}_test
   pool: 5
   timeout: 5000

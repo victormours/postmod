@@ -20,4 +20,5 @@ end
 group :development do
   gem 'postmod', git: 'git://github.com/victormours/postmod.git'
   gem 'dotenv'
+  gem 'rspec'
 end
