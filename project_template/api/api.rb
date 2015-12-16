@@ -1,7 +1,7 @@
-require 'sinatra/base'
-require 'json'
+require 'grape'
 
 ActiveRecord::Base.establish_connection
 
-class Api < Sinatra::Application
+class Api < Grape::API
+  format :json
 end

@@ -98,10 +98,9 @@ So now we could use greetings as a ruby library and greet people. Nothing remark
 The api is defined in `api/api.rb` like this:
 ```
 require_relative '../lib/greetings'
-require 'sinatra/base'
-require 'json'
+require 'grape'
 
-class Api < Sinatra::Application
+class Api < Grape::API
 end
 ```
 
@@ -109,10 +108,9 @@ Let's edit it like this:
 
 ```
 require_relative '../lib/greetings'
-require 'sinatra/base'
-require 'json'
+require 'grape'
 
-class Api < Sinatra::Application
+class Api < Grape::API
 
   get '/hello.json' do
     Greetings::Hello.().to_json
@@ -197,4 +195,4 @@ $ heroku open
 That's it!
 ===
 
-Lots of things such as testing, connecting to a local database, background jobs, a simpler way to define the api, etc... are missing, but things are on their way.
+To take things one step further, check out the tutorial on crud.

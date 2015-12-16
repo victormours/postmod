@@ -1,4 +1,4 @@
-Basic CRUD in the console
+Basic CRUD
 ===
 
 Some applications only rely on external data stores to run, but most of them use a database with a structure adapted to their needs. Postmod facilitates working with Postgresql and Heroku.
@@ -6,6 +6,8 @@ Some applications only rely on external data stores to run, but most of them use
 If you've used Rails before, you're going to feel right at home with how Postmod interacts with the database.
 
 In this tutorial, you'll learn to create a simple todolist app, which is going to be usable only from the console at first. In the second half of the tutorial, we'll see how to port that application to make it available as an api, and then as a web app.
+
+For an overview of Postmod, take a look at the Getting started tutorial.
 
 
 Prereqs
@@ -149,31 +151,30 @@ Porting to the api
 Let's modify the `api/api.rb` to make it look like this:
 ```
 require_relative '../lib/todolist'
-require 'sinatra/base'
-require 'json'
+require 'grape'
 
 ActiveRecord::Base.establish_connection
 
-class Api < Sinatra::Application
+class Api < Grape::API
 
   get "/todos" do
-    { todos: Todolist::Todo.all }.to_json
+    { todos: Todolist::Todo.all }
   end
 
   get "/todos/:id" do
-    { todo: Todolist::Todo.find(params['id']) }.to_json
+    { todo: Todolist::Todo.find(params['id']) }
   end
 
   post "/todos" do
     {
       todo: Todolist::Todo.create(content: params['content'])
-    }.to_json
+    }
   end
 
   put "/todos/:id" do
     todo = Todolist::Todo.find(params['id'])
     todo.update(params['todo'])
-    { todo: todo }.to_json
+    { todo: todo }
   end
 
 end
@@ -197,3 +198,56 @@ You can now commit, push to heroku, and run the same requests. You get the idea.
 Porting to the web
 ===
 
+Let's start by making the list available to the homepage.
+Modify the `pages` section of the `web/app.yml` to map the index to the list of items:
+```
+pages:
+
+  index.html:
+    todos: GET todos
+```
+
+And then let's show these in the `templates/index.html`
+
+```
+<h1>Todo list</h1>
+<ul>
+{{#todos.todos}}
+<li>
+{{content}}
+</li>
+{{/todos.todos}}
+
+</ul>
+```
+
+Now let's add a form at the bottom of the page to create a new item:
+```
+<form action="/todo" method="post">
+  <label for="content">New item:</label>
+  <input type="text" name="content" id="content"/>
+  <div class="button">
+    <button type="submit">Create</button>
+  </div>
+</form>
+```
+
+We'll need to modify the routes and redirect section of the `web/app.yml` to make this work:
+```
+routes:
+  GET /: index.html
+  POST /todo: redirect create
+
+
+redirects:
+
+  create:
+    path: /
+    requests:
+      todo:
+          - POST todos
+          -
+            content: "{{ content }}"
+
+
+```
