@@ -22,6 +22,7 @@ module Postmod
       FileUtils.cp_r(Dir.glob(project_template_path + "/*"), project_path)
       File.write("#{project_path}/.ruby-version", '2.2.2')
       File.write("#{project_path}/.ruby-version", '2.2.2')
+      File.write("#{project_path}/.env", "export DATABASE_URL=postgres:///#{project_name}_dev")
     end
 
     def create_lib

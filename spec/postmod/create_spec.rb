@@ -9,8 +9,14 @@ RSpec.describe Postmod::Create do
   it "creates a console in the bin directory" do
     described_class.('spec/tmp/toto')
     expect(console_file_content).to eq expected_console_file_content
-
   end
+
+  it "creates a .env file with the database url" do
+    described_class.('spec/tmp/toto')
+    expect(dotenv_file_content).to eq "export DATABASE_URL=postgres:///toto_dev"
+  end
+
+  let(:dotenv_file_content) { File.readlines('spec/tmp/toto/.env').reduce(&:+) }
 
   let(:expected_console_file_content) do
   <<CONSOLE_FILE
@@ -23,8 +29,6 @@ CONSOLE_FILE
   end
 
   let(:console_file_content) { File.readlines('spec/tmp/toto/bin/console').reduce(&:+) }
-
-
 
   after { `rm -rf spec/tmp/toto` }
 
