@@ -251,3 +251,6 @@ redirects:
 
 
 ```
+
+This is enough to see the list of items and create new ones.
+You can implement updating and deleting items in a very similar fashion.
