@@ -38,6 +38,7 @@ module Postmod
     end
 
     def create_bin
+      FileUtils.mkdir(project_path + '/bin')
       File.open("#{project_path}/bin/console", 'w') do |console_file|
         console_file.puts '#!/usr/bin/env ruby'
         console_file.puts "require 'pry'"
