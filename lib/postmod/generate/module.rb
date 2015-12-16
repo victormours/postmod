@@ -4,7 +4,7 @@ module Postmod::Generate
   Module = Postmod::Action.new(:module_path) do
 
     def call
-      Dir.mkdir(module_path)
+      FileUtils.mkdir_p(module_path)
 
       File.open(module_filename, 'w') do |file|
         file.puts module_content

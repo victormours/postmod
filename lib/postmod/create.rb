@@ -25,7 +25,7 @@ module Postmod
     end
 
     def create_lib
-      Postmod::Generate::Module.("#{project_path}/lib/#{project_name}")
+      Postmod::Create::Lib.call("#{project_path}/lib/#{project_name}")
     end
 
     def create_db
@@ -37,7 +37,6 @@ module Postmod
     end
 
     def create_bin
-
       File.open("#{project_path}/bin/console", 'w') do |console_file|
         console_file.puts '#!/usr/bin/env ruby'
         console_file.puts "require 'pry'"
@@ -77,4 +76,6 @@ module Postmod
     end
 
   end
+
+  Dir["#{__FILE__.gsub(/\.rb$/, '')}/*.rb"].each {|file| require file }
 end
