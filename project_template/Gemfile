@@ -4,6 +4,10 @@ group :web do
   gem 'chaplin', git: 'git://github.com/victormours/chaplin.git'
 end
 
+group :api do
+  gem 'grape'
+end
+
 group :lib do
   gem 'pg'
 end
